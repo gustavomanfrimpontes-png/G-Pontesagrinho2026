@@ -1,46 +1,68 @@
-<!DOCTYPE>
-<html>
-  
-</html>
-<!DOCTYPE html>
+html<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Império do Agro - Jogo de Fazenda</title>
+    <title>Agro Forte, Futuro Sustentável</title>
     <style>
-        :root {
-            --primary: #2e7d32;
-            --primary-light: #4c8c4a;
-            --secondary: #8d6e63;
-            --background: #f1f8e9;
-            --text: #333;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--background);
-            color: var(--text);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        header {
+            font-family: Arial, sans-serif;
+            background-color: #f4f9f4;
             text-align: center;
-            margin-bottom: 20px;
+            padding: 20px;
         }
-
-        h1 {
-            color: var(--primary);
-            margin-bottom: 5px;
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
+        .status {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        button {
+            padding: 12px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            transition: 0.3s;
+        }
+        button:hover { background-color: #45a049; }
+        #mensagem {
+            margin-top: 20px;
+            font-style: italic;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
 
-        .game-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            max-width: 900px;
-            width: 1
+    <div class="container">
+        <h1>🌱 Agro Forte, Futuro Sustentável</h1>
+        <div class="status">
+            💰 Moedas: <span id="moedas">100</span> | 
+            🌍 Saúde do Solo: <span id="solo">100</span> | 
+            📦 Produção: <span id="producao">0</span>
+        </div>
+
+        <div id="mensagem">Comece a sua gestão agrícola!</div>
+
+        <div>
+            <button onclick="plantioDireto()">Plantio Direto</button>
+            <button onclick="agriculturaPrecision()">Agri. de Precisão</button>
+            <button onclick="usoAgroquimicos()">Uso de Agroquímicos</button>
+            <button onclick="passarTurno()">Avançar Rodada</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
