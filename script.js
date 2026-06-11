@@ -1,109 +1,100 @@
-javascript// ==========================================
-// SCRIPT.JS - Agro Forte, Futuro Sustentável
-// ==========================================
-
-// Estado inicial da fazenda
-const fazenda = {
-    recursos: {
-        agua: 100, // % de qualidade/disponibilidade
-        solo: 100, // % de fertilidade
-        energia: 100, // % de eficiência limpa
-        capital: 500, // Moedas para investir
+// Banco de dados de cenários baseados no Agrinho moderno
+const gameEvents = [
+    {
+        id: 1,
+        text: "Sua propriedade precisa combater uma praga de lagartas na lavoura de milho. O que você faz?",
+        choices: [
+            {
+                text: "Aplicar defensivos químicos pesados imediatamente de forma generalizada.",
+                economy: +20,
+                environment: -25
+            },
+            {
+                text: "Adotar o Manejo Integrado de Pragas (MIP) e usar controle biológico (vespas inimigas naturais).",
+                economy: -10,
+                environment: +25
+            }
+        ]
     },
-    ano: 1,
-    pontuacao: 0,
-    modoAtivo: "convencional" // Alterna entre convencional e sustentavel
-};
-
-// --- AÇÕES DO JOGADOR ---
-
-function adotarPraticaSustentavel(tipo) {
-    if (tipo === "solar" && fazenda.recursos.capital >= 200) {
-        fazenda.recursos.energia += 30;
-        fazenda.recursos.capital -= 200;
-        fazenda.recursos.solo += 10; // Menos poluição
-        fazenda.pontuacao += 50;
-        console.log("Painéis solares instalados! Energia limpa garantida.");
-    } else if (tipo === "plantioDireto" && fazenda.recursos.capital >= 100) {
-        fazenda.recursos.solo += 40; // Evita erosão
-        fazenda.recursos.agua += 20; // Conservação hídrica
-        fazenda.recursos.capital -= 100;
-        fazenda.pontuacao += 40;
-        console.log("Plantio Direto aplicado com sucesso.");
-    } else if (tipo === "bioInsumos" && fazenda.recursos.capital >= 50) {
-        fazenda.recursos.solo += 25;
-        fazenda.recursos.agua -= 10; // Reduz contaminação
-        fazenda.recursos.capital -= 50;
-        fazenda.pontuacao += 30;
-        console.log("Uso de bioinsumos iniciado para proteger o solo.");
-    } else {
-        console.log("Capital insuficiente ou ação inválida!");
+    {
+        id: 2,
+        text: "Chegou o momento de preparar o solo para a próxima safra de soja. Qual técnica utilizar?",
+        choices: [
+            {
+                text: "Realizar a aração convencional revirando a terra para limpar rápido o terreno.",
+                economy: +15,
+                environment: -20
+            },
+            {
+                text: "Implementar o Sistema de Plantio Direto na palha, preservando a umidade e microrganismos do solo.",
+                economy: +5,
+                environment: +20
+            }
+        ]
+    },
+    {
+        id: 3,
+        text: "A conta de energia elétrica dos sistemas de irrigação da fazenda está muito alta. Como resolver?",
+        choices: [
+            {
+                text: "Reduzir as horas de irrigação para economizar, mesmo arriscando perder um pouco de produtividade.",
+                economy: -15,
+                environment: +10
+            },
+            {
+                text: "Investir em painéis de energia solar fotovoltaica e sensores inteligentes de umidade no solo.",
+                economy: -25,
+                environment: +35
+            }
+        ]
+    },
+    {
+        id: 4,
+        text: "Uma área de Mata Ciliar (beira de rio) dentro da sua propriedade está degradada. O fiscal ambiental visitará a região.",
+        choices: [
+            {
+                text: "Ignorar a mata e focar em expandir a área de pastagem para o gado lucrar mais rápido.",
+                economy: +25,
+                environment: -30
+            },
+            {
+                text: "Isolar a área do gado e plantar mudas de árvores nativas para recompor a Área de Preservação Permanente (APP).",
+                economy: -15,
+                environment: +30
+            }
+        ]
+    },
+    {
+        id: 5,
+        text: "Pequenos produtores vizinhos propuseram criar uma cooperativa local para vender alimentos orgânicos certificados.",
+        choices: [
+            {
+                text: "Recusar e continuar focado em monocultura de larga escala independente.",
+                economy: +15,
+                environment: -10
+            },
+            {
+                text: "Entrar na cooperativa, diversificar a produção com agroecologia e agregar valor ao produto sustentável.",
+                economy: +20,
+                environment: +20
+            }
+        ]
     }
-    limitarValores();
-    verificarFimDeJogo();
-}
+];
 
-function venderSafra() {
-    // Lucro baseado na saúde do solo e da água
-    let lucroBase = 100;
-    let multiplicadorSustentabilidade = (fazenda.recursos.solo + fazenda.recursos.agua) / 200;
-    let lucroFinal = Math.floor(lucroBase * multiplicadorSustentabilidade);
+// Estado do Jogo
+let economy = 50;
+let environment = 50;
+let currentTurn = 0;
 
-    fazenda.recursos.capital += lucroFinal;
-    fazenda.pontuacao += 20;
-    
-    console.log(`Safra vendida! Lucro de R$${lucroFinal}.`);
-    avancarAno();
-}
-
-function avancarAno() {
-    fazenda.ano++;
-    
-    // Eventos climáticos ou ambientais que afetam os recursos a cada ano
-    fazenda.recursos.agua -= 15;
-    fazenda.recursos.solo -= 15;
-    
-    console.log(`Ano ${fazenda.ano} iniciado.`);
-    limitarValores();
-    verificarFimDeJogo();
-}
-
-// --- REGRAS DO JOGO ---
-
-function limitarValores() {
-    // Garante que nenhum recurso passe de 100% ou caia abaixo de 0%
-    for (const recurso in fazenda.recursos) {
-        if (fazenda.recursos[recurso] > 100) fazenda.recursos[recurso] = 100;
-        if (fazenda.recursos[recurso] < 0) fazenda.recursos[recurso] = 0;
-    }
-}
-
-function verificarFimDeJogo() {
-    // Condições de Game Over
-    if (fazenda.recursos.agua <= 0) {
-        console.log("GAME OVER: Os recursos hídricos da fazenda esgotaram! Falha no sistema.");
-        resetarJogo();
-    } else if (fazenda.recursos.solo <= 0) {
-        console.log("GAME OVER: O solo foi totalmente degradado por exaustão.");
-        resetarJogo();
-    } else if (fazenda.recursos.capital <= 0) {
-        console.log("GAME OVER: Falência. A fazenda não tem mais capital para operar.");
-        resetarJogo();
-    }
-}
-
-function resetarJogo() {
-    console.log("Reiniciando sua jornada sustentável...");
-    fazenda.recursos.agua = 100;
-    fazenda.recursos.solo = 100;
-    fazenda.recursos.energia = 100;
-    fazenda.recursos.capital = 500;
-    fazenda.ano = 1;
-    fazenda.pontuacao = 0;
-}
-
-// --- EXEMPLO DE SIMULAÇÃO (TESTE NO CONSOLE) ---
-console.log("--- BEM-VINDO AO AGRO FORTE E FUTURO SUSTENTÁVEL ---");
-adotarPraticaSustentavel("solar");
-adotarPraticaSustentavel("plantioDireto");
-venderSafra();
+// Elementos do DOM
+const barEconomy = document.getElementById('bar-economy');
+const barEnvironment = document.getElementById('bar-environment');
+const txtEconomy = document.getElementById('txt-economy');
+const txtEnvironment = document.getElementById('txt-environment');
+const eventDescription = document.getElementById('event-description');
+const choicesContainer = document.getElementById('choices-container');
+const turnIndicator = document.getElementById('turn-indicator');
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modal-title');
+const modalText = document.
