@@ -3,47 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador Agrinho: Agro Forte & Sustentável</title>
+    <title>Simulador Agrinho: Futuro Sustentável</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
+    <div id="game-container">
         <header>
-            <h1>Agrinho: Missão Futuro Sustentável</h1>
-            <p>Equilibre a força do agro com a saúde do planeta!</p>
+            <h1>Agrinho: Agro Forte & Sustentável</h1>
+            <p>Gerencie sua fazenda. Equilibre a produção com a preservação!</p>
         </header>
 
-        <div class="status-container">
-            <div class="status-card">
-                <span>💰 Economia (Agro Forte):</span>
-                <div class="bar-container">
-                    <div id="bar-economy" class="bar economy" style="width: 50%;"></div>
-                </div>
-                <span id="txt-economy">50%</span>
+        <section id="status-panel">
+            <div class="stat-box">
+                <span class="icon">💰</span>
+                <span class="label">Moedas</span>
+                <span id="stat-money" class="value">1000</span>
             </div>
-            
-            <div class="status-card">
-                <span>🌱 Sustentabilidade:</span>
-                <div class="bar-container">
-                    <div id="bar-environment" class="bar environment" style="width: 50%;"></div>
-                </div>
-                <span id="txt-environment">50%</span>
+            <div class="stat-box">
+                <span class="icon">💧</span>
+                <span class="label">Água</span>
+                <div class="progress-bar"><div id="bar-water" class="progress" style="width: 80%;"></div></div>
             </div>
-        </div>
+            <div class="stat-box">
+                <span class="icon">🌱</span>
+                <span class="label">Saúde do Solo</span>
+                <div class="progress-bar"><div id="bar-soil" class="progress" style="width: 80%;"></div></div>
+            </div>
+            <div class="stat-box">
+                <span class="icon">⚡</span>
+                <span class="label">Energia</span>
+                <div class="progress-bar"><div id="bar-energy" class="progress" style="width: 70%;"></div></div>
+            </div>
+        </section>
 
-        <main class="game-screen">
-            <div id="turn-indicator">Rodada: 1/5</div>
-            <p id="event-description">Carregando desafio...</p>
-            
-            <div id="choices-container" class="choices-grid">
+        <main id="game-core">
+            <section id="event-card">
+                <h2 id="event-title">Carregando início da temporada...</h2>
+                <p id="event-description">Prepare-se para tomar as melhores decisões para a sua propriedade.</p>
+                <div id="action-buttons">
+                    </div>
+            </section>
+
+            <section id="log-panel">
+                <h3>Diário da Fazenda (Turno <span id="current-turn">1</span>)</h3>
+                <div id="log-messages">
+                    <p class="system-msg">Bem-vindo ao Agrinho Simulador! O futuro do agro está em suas mãos.</p>
                 </div>
+            </section>
         </main>
 
-        <div id="modal" class="modal hidden">
+        <div id="game-over-screen" class="hidden">
             <div class="modal-content">
-                <h2 id="modal-title">Fim da Jornada!</h2>
-                <p id="modal-text">Resultado</p>
-                <button id="btn-restart" onclick="restartGame()">Jogar Novamente</button>
+                <h2 id="game-over-title">Fim de Jogo</h2>
+                <p id="game-over-reason">Sua fazenda faliu.</p>
+                <button onclick="window.location.reload()">Jogar Novamente</button>
             </div>
         </div>
     </div>
