@@ -1,68 +1,131 @@
-html<!DOCTYPE html>
+HTML
+
+
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agro Forte, Futuro Sustentável</title>
+    <title>Agro Forte: O Jogo do Campo</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f9f4;
-            text-align: center;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .status {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin: 15px 0;
-        }
-        button {
-            padding: 12px 20px;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            transition: 0.3s;
-        }
-        button:hover { background-color: #45a049; }
-        #mensagem {
-            margin-top: 20px;
-            font-style: italic;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef5ed;
             color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .painel-financeiro {
+            background-color: #fff;
+            padding: 15px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font-size: 24px;
+            font-weight: bold;
+            color: #1b5e20;
+            margin-bottom: 20px;
+        }
+
+        .fazenda {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .lote {
+            width: 100px;
+            height: 100px;
+            background-color: #8d6e63;
+            border: 3px solid #5d4037;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            cursor: pointer;
+            transition: transform 0.1s;
+            user-select: none;
+        }
+
+        .lote:hover {
+            transform: scale(1.05);
+        }
+
+        .lote.pronto {
+            background-color: #cddc39;
+            border-color: #afb42b;
+        }
+
+        .loja {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .loja h2 {
+            margin-top: 0;
+            color: #3e2723;
+            border-bottom: 2px solid #a1887f;
+            padding-bottom: 5px;
+        }
+
+        .item-loja {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #1b5e20;
+        }
+
+        button:disabled {
+            background-color: #9e9e9e;
+            cursor: not-allowed;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>🌱 Agro Forte, Futuro Sustentável</h1>
-        <div class="status">
-            💰 Moedas: <span id="moedas">100</span> | 
-            🌍 Saúde do Solo: <span id="solo">100</span> | 
-            📦 Produção: <span id="producao">0</span>
-        </div>
+    <h1>Agro Forte 🌾</h1>
+    <p>Clique na terra para plantar, espere crescer e clique novamente para colher e lucrar!</p>
 
-        <div id="mensagem">Comece a sua gestão agrícola!</div>
-
-        <div>
-            <button onclick="plantioDireto()">Plantio Direto</button>
-            <button onclick="agriculturaPrecision()">Agri. de Precisão</button>
-            <button onclick="usoAgroquimicos()">Uso de Agroquímicos</button>
-            <button onclick="passarTurno()">Avançar Rodada</button>
-        </div>
+    <div class="painel-financeiro">
+        Saldo: R$ <span id="saldo">100</span>
     </div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+    <div class="fazenda" id="fazenda">
+        </div>
+
+    <div class="loja">
+        <h2>Melhorias da Fazenda</h2>
+        <div class="item-loja">
+            <span>Comprar novo lote de terra</span>
+            <button id="btn-comprar-lote" onclick="comprarLote()">R$ <span id="preco-lote">150</span></button>
+        </div>
+        <div class="item-loja">
+            <span>Tec
