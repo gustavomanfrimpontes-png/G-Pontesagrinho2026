@@ -1,139 +1,186 @@
 :root {
-    --green-dark: #1b4d3e;
-    --green-light: #2ecc71;
-    --amber: #f39c12;
-    --background: #f4f7f6;
-    --text: #2c3e50;
+    --primary-color: #2e7d32;
+    --primary-light: #4caf50;
+    --background-color: #f1f8e9;
+    --card-background: #ffffff;
+    --text-color: #333333;
+    --danger-color: #d32f2f;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--background);
-    color: var(--text);
-    margin: 0;
-    padding: 20px;
+    background-color: var(--background-color);
+    color: var(--text-color);
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    padding: 20px;
 }
 
-.game-container {
-    background: #ffffff;
-    max-width: 600px;
+#game-container {
+    max-width: 800px;
     width: 100%;
+    background: var(--card-background);
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-    padding: 25px;
-    box-sizing: border-box;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+    border-bottom: 3px solid var(--primary-color);
+    padding-bottom: 10px;
 }
 
 header h1 {
-    color: var(--green-dark);
-    margin-top: 0;
-    text-align: center;
-    font-size: 24px;
+    color: var(--primary-color);
 }
 
-header p {
-    text-align: center;
-    color: #7f8c8d;
-    font-size: 14px;
+/* Painel de Status */
+#status-panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 15px;
     margin-bottom: 25px;
 }
 
-/* Barras de Status */
-.status-container {
+.stat-box {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.status-card {
-    display: flex;
     align-items: center;
-    justify-content: space-between;
+}
+
+.stat-box .icon {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.stat-box .label {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.stat-box .value {
+    font-size: 1.2rem;
     font-weight: bold;
-    font-size: 14px;
+    color: var(--primary-color);
 }
 
-.bar-container {
-    background: #e0e0e0;
-    border-radius: 8px;
-    width: 50%;
-    height: 16px;
+.progress-bar {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 6px;
+    height: 12px;
     overflow: hidden;
-    margin: 0 10px;
 }
 
-.bar {
+.progress {
     height: 100%;
-    transition: width 0.5s ease-in-out;
+    background-color: var(--primary-light);
+    transition: width 0.4s ease;
 }
 
-.bar.economy { background-color: var(--amber); }
-.bar.environment { background-color: var(--green-light); }
+/* Área Central do Jogo */
+#game-core {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
 
-/* Tela do Jogo */
-.game-screen {
-    background: #f9fbf9;
-    border: 2px solid #e8f0ec;
-    border-radius: 8px;
+#event-card {
+    background: #f9f9f9;
+    border-left: 5px solid var(--primary-color);
+    border-radius: 6px;
     padding: 20px;
-    text-align: center;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
 }
 
-#turn-indicator {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #95a5a6;
+#event-title {
     margin-bottom: 10px;
+    color: #2c3e50;
 }
 
 #event-description {
-    font-size: 18px;
+    margin-bottom: 20px;
     line-height: 1.6;
-    margin-bottom: 25px;
-    min-height: 60px;
 }
 
-.choices-grid {
+#action-buttons {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 button.choice-btn {
-    background: #ffffff;
-    border: 2px solid var(--green-dark);
-    color: var(--green-dark);
-    padding: 14px 20px;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 600;
+    background-color: white;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 12px;
+    border-radius: 6px;
     cursor: pointer;
+    font-weight: bold;
     transition: all 0.2s ease;
+    text-align: left;
 }
 
 button.choice-btn:hover {
-    background: var(--green-dark);
-    color: #ffffff;
+    background-color: var(--primary-color);
+    color: white;
 }
 
-/* Modal de Fim de Jogo */
-.modal {
-    position: fixed;
+/* Diário de Bordo */
+#log-panel {
+    background: #333;
+    color: #fff;
+    border-radius: 6px;
+    padding: 15px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#log-panel h3 {
+    font-size: 0.9rem;
+    border-bottom: 1px solid #555;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    color: var(--primary-light);
+}
+
+#log-messages {
+    max-height: 120px;
+    overflow-y: auto;
+    font-size: 0.85rem;
+}
+
+#log-messages p {
+    margin-bottom: 5px;
+}
+
+.system-msg { color: #81c784; }
+.bad-msg { color: #e57373; }
+
+/* Tela de Fim de Jogo */
+#game-over-screen {
+    position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.85);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 10;
 }
-
-.modal.hidden { display: none; }
 
 .modal-content {
     background: white;
@@ -141,16 +188,24 @@ button.choice-btn:hover {
     border-radius: 12px;
     text-align: center;
     max-width: 400px;
-    width: 90%;
 }
 
-#btn-restart {
-    background: var(--green-light);
+.modal-content h2 {
+    color: var(--danger-color);
+    margin-bottom: 15px;
+}
+
+.modal-content button {
+    margin-top: 20px;
+    background: var(--primary-color);
     color: white;
     border: none;
-    padding: 12px 25px;
-    font-size: 16px;
-    border-radius: 6px;
+    padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
-    margin-top: 20px;
+    font-weight: bold;
+}
+
+.hidden {
+    display: none !important;
 }
